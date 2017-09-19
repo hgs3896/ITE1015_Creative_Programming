@@ -1,12 +1,7 @@
 #include <iostream>
 
 void make_a_fucking_magic_square(unsigned int** square, int N){
-	int i,j,x,y,v;
-
-	// Initialization
-	for(i=0;i<N*N;++i)	square[i/N][i%N] = 0;
-	v = 1, i = 0, j = N/2;
-	
+	int i=0,j=N/2,x,y,v=1;
 	// Fill in the fucking magic square the numbers from 1 to N*N.
 	while(v<=N*N){
 		// Fill in the number(the variable v).
@@ -29,7 +24,7 @@ int main(){
 	try{
 		// Allocation
 		unsigned int **square = new unsigned int*[N];
-		for(i=0;i<N;++i) square[i] = new unsigned int[N];
+		for(i=0;i<N;++i) square[i] = new unsigned int[N]{};
 
 		// Make a fucking magic square.
 		make_a_fucking_magic_square(square, N);
