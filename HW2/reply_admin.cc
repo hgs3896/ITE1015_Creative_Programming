@@ -2,6 +2,7 @@
 #include <string>
 #include <cstdio>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -78,6 +79,7 @@ vector<int> getRemovalList(string cmd){
 			c_pos = cmd.find(",", pos+1);
 			c_pos = c_pos==string::npos ? size : c_pos;
 		}
+		sort(list.begin(), list.end());
 	}else{
 		sscanf(cmd.substr(pos, size-pos).c_str(), "%d", &x);
 		list.push_back(x);
