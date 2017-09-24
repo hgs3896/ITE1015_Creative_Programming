@@ -8,8 +8,8 @@ using namespace std;
 
 const int NUM_OF_CHAT = 200;
 
-unsigned int getChatCount(string *_chatList){
-	unsigned int i;
+size_t getChatCount(string *_chatList){
+	size_t i;
 	for(i=0;i<NUM_OF_CHAT;++i)
 		if(_chatList[i].empty())
 			break;
@@ -21,40 +21,46 @@ void printChat(string *_chatList){
 		cout << i << " " << _chatList[i] << endl;
 }
 
-// Implement these functions
+bool hasThatCMD(string cmd, string _chat){
+	int pos = _chat.find(cmd);
+	if(pos==string::npos) return false;
+	while(--pos>=0)
+		if(_chat[pos]!=' ' && _chat[pos]!='\t')
+			return false;
+	return true;
+}
+
 bool addChat(string *_chatList, string _chat){
-	unsigned int size = getChatCount(_chatList);
-	if(size>=NUM_OF_CHAT) return false;
+	size_t size = getChatCount(_chatList);
+	// If the limit exceeds, fail to add a chat.
+	if(size>=NUM_OF_CHAT)
+		return false;
+	// If a chat has some command, ignore it.
+	if(hasThatCMD("#", _chat))
+		return false;
+
+	// Add chat
 	_chatList[size] = _chat;
 	return true;
 }
 
+bool isQuitCMD(string _chat){
+	return hasThatCMD("#quit", _chat);
+}
+
+bool isRMCMD(string _chat){
+	return hasThatCMD("#remove", _chat);
+}
+
 bool removeChat(string *_chatList, int _index){
-	unsigned int size = getChatCount(_chatList);
-	if(_index<0 || _index>=size)
+	size_t size = getChatCount(_chatList);
+	if(_index<0 || _index>=size || size==0)
 		return false;
 	
-	for(int i=_index;i<size-1;++i)
+	for(size_t i=_index;i<size-1;++i)
 		_chatList[i]=_chatList[i+1];
 
 	_chatList[size-1].clear();
-	return true;
-}
-
-bool isQuitCMD(string command){
-	int pos = command.find("#quit");
-	if(pos==string::npos) return false;
-	while(--pos>=0)
-		if(command[pos]!=' ') return false;	
-	return true;
-}
-
-bool isRMCMD(string command){
-	int i, pos;
-	pos = command.find("#remove");
-	if(pos==string::npos) return false;
-	for(i=0;i<pos;++i)
-		if(command[i]!=' ') return false;
 	return true;
 }
 
@@ -107,9 +113,15 @@ int main(){
 		{
 			vector<int> removal_list = getRemovalList(command);
 			// remove chat
-			for(int i=removal_list.size()-1;i>=0;--i)
-				removeChat(chats, removal_list[i]);
-			printChat(chats);
+			size_t size = removal_list.size();
+			if(size==1){
+				if(removeChat(chats, removal_list[0]))
+					printChat(chats);
+			}else{
+				for(int i=size-1;i>=0;--i)
+					removeChat(chats, removal_list[i]);
+				printChat(chats);
+			}
 		}
 		else if(addChat(chats, command))
 			printChat(chats);

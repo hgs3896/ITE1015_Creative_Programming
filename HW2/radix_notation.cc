@@ -4,24 +4,18 @@
 #include <sstream>
 #include <algorithm>
 
-template <typename T>
-std::string toString(T value){
-	std::ostringstream ss;
-	ss << value;
-	return ss.str();
-}
-
 std::string RadixNotation(unsigned int number, unsigned int radix){
-	std::string a, s = " ";
-	unsigned int t;
-	while(number>0){
-		t = number%radix;
-		s[0] = t < 10 ? t + '0' : t - 10 + 'a';
-		a += std::string(s);
+	std::string s;
+	unsigned int r;
+	do{
+		r = number%radix;
+		char buffer[3];
+		sprintf(buffer, "%c", (r < 10 ? r + '0' : r + 'a' - 10));
+		s += std::string(buffer);
 		number /= radix;
-	}
-	std::reverse(a.begin(), a.end());
-	return a;
+	}while(number>0);
+	std::reverse(s.begin(), s.end());
+	return s;
 }
 
 int main(int argc, char** argv){

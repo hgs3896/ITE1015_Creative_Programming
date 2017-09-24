@@ -7,15 +7,9 @@
 using std::cout;
 using std::endl;
 using std::sscanf;
+using std::sprintf;
 using std::string;
 using std::vector;
-
-// This is for converting an unsigned int to string format.
-string toString(unsigned int v){
-	std::ostringstream ss;
-	ss << v;
-	return ss.str();
-}
 
 string primeFactorization(unsigned int number){
 	// vectors
@@ -54,11 +48,13 @@ string primeFactorization(unsigned int number){
 	}
 
 	// Make a string format
-	string result = "";
+	string result;
 	size = factors.size();
 	for(i=0;i<size;++i){
 		if(factors[i]>=1){
-			result += toString(primes[i]) + "^" + toString(factors[i]);
+			char buffer[100];
+			sprintf(buffer, "%u^%u", primes[i], factors[i]);
+			result += string(buffer);
 			if(i<size-1)
 				result += " x ";
 		}
