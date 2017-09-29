@@ -109,6 +109,8 @@ vector<int> getRemovalList(const string &cmd){
 		if (convertToInt(cmd.substr(cmd_pos, size - cmd_pos), x))
 			list.push_back(x);		
 	}
+	vector<int>::iterator it = unique(list.begin(), list.end());
+	list.erase(it, list.end());
 	return list;
 }
 
