@@ -78,7 +78,9 @@ vector<int> getRemovalList(const string &cmd){
 	int cmd_pos, dash_pos, c_pos, size = cmd.size();
 	vector<int> list;
 
-	cmd_pos = cmd.find("#remove") + 7;
+	cmd_pos = cmd.find("#remove");
+	if(cmd_pos!=string::npos)
+		cmd_pos + 7;
 	dash_pos = cmd.find("-");
 	c_pos = cmd.find(",");
 
