@@ -73,14 +73,17 @@ int main ( void )
 
         if ( result == BLACKJACK ) {
             cout << "BlackJack" << endl;
-        } else if ( result == EXCEED ) {
-            cout << "Exceed" << endl;
-        } else if ( 0 < result && result < BLACKJACK ) {
+		}
+		else if (result == EXCEED) {
+			cout << "Exceed" << endl;
+		}
+		else if ( 0 < result && result < BLACKJACK ) {
             cout << result << endl;
         }
 
         delete[] arr;
         arr = nullptr;
+		if (result == INPUT_ERROR) break;
     }
     return 0;
 }
