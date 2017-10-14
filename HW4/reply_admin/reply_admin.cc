@@ -5,7 +5,7 @@ ReplyAdmin::ReplyAdmin() {
 }
 
 ReplyAdmin::~ReplyAdmin() {
-	delete[] chats;
+	delete chats;
 }
 
 bool ReplyAdmin::addChat(string _chat) {
