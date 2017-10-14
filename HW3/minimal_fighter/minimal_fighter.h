@@ -1,4 +1,3 @@
-#pragma once
 #ifndef INC_MINIMAL_FIGHTER
 #define INC_MINIMAL_FIGHTER
 enum FighterStatus { Invailid, Alive, Dead };
