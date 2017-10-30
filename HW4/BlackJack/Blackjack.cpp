@@ -4,9 +4,7 @@
 
 using namespace std;
 
-const int BLACKJACK = 21;
-const int INPUT_ERROR = -1;
-const int EXCEED = 0;
+enum GAME_STATE {BLACKJACK = 21, INPUT_ERROR = -1, EXCEED = 0};
 
 inline int dist ( int pos, int how_far )
 {
@@ -66,18 +64,13 @@ int main ( void )
         for ( int i = 0; i < N; ++i )
             cin >> arr[i];
 
-        cin.clear();
-
         int result = blackjack ( arr, N );
-
-
+        
         if ( result == BLACKJACK ) {
             cout << "BlackJack" << endl;
-		}
-		else if (result == EXCEED) {
+		}else if (result == EXCEED) {
 			cout << "Exceed" << endl;
-		}
-		else if ( 0 < result && result < BLACKJACK ) {
+		}else if ( 0 < result && result < BLACKJACK ) {
             cout << result << endl;
         }
 
