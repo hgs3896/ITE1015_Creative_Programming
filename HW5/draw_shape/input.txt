@@ -7,6 +7,15 @@ draw
 add tri_up 8 8 3 #
 add rect 5 5 6 6 +
 dump
+
+13 4
+draw
+
+10 9
+add rect 5 5 3 3 *
+add tri_up 7 7 2 #
+draw
+
 delete 3
 delete 1
 draw
