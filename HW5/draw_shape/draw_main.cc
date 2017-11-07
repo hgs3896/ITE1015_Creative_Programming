@@ -19,8 +19,9 @@ int main() {
 		std::getline(std::cin, cmd);
 		std::stringstream ss;
 		if (!cmd.find("add")) {
-			Shape shape;			
-			std::size_t pos_of_cmd;
+			Shape shape;
+
+			size_t pos_of_cmd;
 			if ((pos_of_cmd = cmd.find("rect", 4)) != std::string::npos) {
 				shape.type = RECTANGLE;
 				ss << cmd.substr(pos_of_cmd + 4);
@@ -83,7 +84,6 @@ int main() {
 			break;
 		}
 		else {
-			// 가로 길이, 세로길이
 			int col, row;
 			ss << cmd;
 			ss >> col >> row;
