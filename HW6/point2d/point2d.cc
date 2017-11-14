@@ -34,18 +34,36 @@ bool registerPoint(const std::string& var_name, const Point& p) {
 	return true;
 }
 
-bool parseToPoint(std::string arg, Point* p) {
-	if (arg.find_first_not_of("-0123456789") == std::string::npos) {
-		*p = Point(stoi(arg));
-	}else {
-		if (arg[0] == '-') {
-			arg = arg.substr(1);
-
-		}
-		else {
-			if(Point::variables[arg])
-		}
-
+bool parseToPoint(const std::string& arg, Point* p) {
+	/*
+		수식 : [부호][수 또는 변수 명]
+	*/
+	bool negative = false;
+	std::string expr;
+	if (arg[0] == '-')
+	{
+		negative = true;
+		expr = arg.substr(1U);
 	}
-	std::cout << "input error" << std::endl;
+	else if(arg[0] == '+'){
+		expr = arg.substr(1U);
+	}
+	else {
+		expr = arg;
+	}
+
+	// 숫자가 아닌 것이 있다면,
+	if (expr.find_first_not_of("0123456789") != std::string::npos) {
+		// 변수명임
+		if (!Point::variables.count(expr)) {
+			return false;
+		}
+		*p = negative ? -Point::variables[expr] : Point::variables[expr];
+	}
+	else {
+		// 그냥 숫자임
+		int v = stoi(expr);
+		p->x_ = p->y_ = negative ? -v : v;
+	}
+	return true;
 }

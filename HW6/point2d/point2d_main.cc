@@ -1,7 +1,8 @@
-
 #include <sstream>
 #include <string>
 #include "point2d.h"
+
+std::map<std::string, Point> Point::variables;
 
 int main() {
 	std::string line, cmd;
@@ -24,8 +25,8 @@ int main() {
 			if (pos != std::string::npos) {
 				continue;
 			}
-
-			
+			Point p = {x, y};
+			registerPoint(var_name, p);
 		}
 		else if (cmd == "eval") {
 			std::string lvar, rvar;
@@ -39,7 +40,14 @@ int main() {
 				break;
 			}
 
-			
+			/*
+				"eval 수식(lvar) 연산자(+,-,*) 수식(rvar)"
+			*/
+
+			if (!parseToPoint(lvar, &l) || !parseToPoint(rvar, &r)){
+				std::cout << "input error" << std::endl;
+				continue;
+			}
 
 			switch (op) {
 			case '+':
@@ -52,6 +60,7 @@ int main() {
 				std::cout << l * r << std::endl;
 				break;
 			default:
+				std::cout << "input error" << std::endl;
 				break;
 			}
 		}
