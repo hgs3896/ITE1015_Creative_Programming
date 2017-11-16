@@ -15,6 +15,6 @@ int main() {
 		}
 	} while (!(winner = game.IsOmok()));
 	cout << game;
-	cout << "Winner: " << (winner == Omok::BLACK ? "Black" : "WHITE") << " player " << std::endl;
+	cout << "Winner: " << (winner == BLACK ? "Black" : "WHITE") << " player " << std::endl;
 	return 0;
 }
