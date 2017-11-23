@@ -27,7 +27,7 @@ void UpTriangle::Draw(Canvas* canvas) const {
 }
 
 void UpTriangle::Dump(std::ostream& os) const {
-	os << "tri_up " << x << ' ' << y << ' ' << ' ' << h << ' ' << brush << std::endl;
+	os << "tri_up " << x << ' ' << y << ' ' << h << ' ' << brush << std::endl;
 }
 
 /* DownTriangle */
@@ -39,7 +39,7 @@ void DownTriangle::Draw(Canvas* canvas) const {
 }
 
 void DownTriangle::Dump(std::ostream& os) const {
-	os << "tri_down " << x << ' ' << y << ' ' << ' ' << h << ' ' << brush << std::endl;
+	os << "tri_down " << x << ' ' << y << ' ' << h << ' ' << brush << std::endl;
 }
 
 /* Diamond */
@@ -55,8 +55,10 @@ void Diamond::Draw(Canvas* canvas) const {
 }
 
 void Diamond::Dump(std::ostream& os) const {
-	os << "diamond " << x << ' ' << y << ' ' << ' ' << h << ' ' << brush << std::endl;
+	os << "diamond " << x << ' ' << y << ' ' << h << ' ' << brush << std::endl;
 }
+
+/* bitwise operator overloading for basic input streams */
 
 std::istream& operator>>(std::istream& is, Rectangle& rhs) {
 	return is >> rhs.x >> rhs.y >> rhs.w >> rhs.h >> rhs.brush;
@@ -74,7 +76,9 @@ std::istream& operator>>(std::istream& is, Diamond& rhs) {
 	return is >> rhs.x >> rhs.y >> rhs.h >> rhs.brush;
 }
 
-Canvas::Canvas(size_t row, size_t col):row(row), col(col) {
+/* Canvas Implementation */
+
+Canvas::Canvas(size_t row, size_t col): row(row), col(col) {
 	int i, j;
 	// Dynamic Allocation
 	map = new char*[row];
@@ -129,18 +133,29 @@ void Canvas::Clear() {
 	}
 }
 
+/* bitwise operator overloading for printing the Canvas instance readily with output stream */
+
 std::ostream& operator<<(std::ostream& os, const Canvas& c) {
 	int i, j;
 	// Print
+	
+	// The first line is for the grid numbers.
+
+	// Spacing
 	os << ' ';
+	// Print the first row.
 	for (i = 0; i < c.getCol(); ++i)
 		os << i % 10;
 	os << std::endl;
+
+	// Print each row.
 	for (i = 0; i < c.getRow(); ++i) {
 		os << i % 10;
 		for (j = 0; j < c.getCol(); ++j)
 			os << c.map[i][j];
 		os << std::endl;
 	}
+
+	// Return the values.
 	return os;
 }
