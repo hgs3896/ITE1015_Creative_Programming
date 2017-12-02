@@ -46,47 +46,46 @@ int Polynomial::operator()(int rhs) const {
 }
 
 Polynomial& Polynomial::operator>>(const std::string& expr){
-	std::regex reg(R"((-?)((\d*)x(\^(\d+))?|(\d+)))");
-	std::smatch m;
+	try{
+		std::regex reg(R"(\-)?(?:(\d*)x(?:\^(\d+))?|(\d+))");
+		std::smatch m;
 	
-	std::string txt = expr;
+		std::string txt = expr;
 
-	while (std::regex_search(txt, m, reg)) {
+		while (std::regex_search(txt, m, reg)) {
 
-		std::vector<std::string> arr;
+			std::vector<std::string> arr;
 
-		for (auto& sm : m) {
-			arr.push_back(static_cast<std::string>(sm));
+			for (auto& sm : m) {
+				arr.push_back(static_cast<std::string>(sm));
+			}
+
+			bool negative = arr[1][0]=='-';
+
+			Term term;
+
+			if (!arr[4].empty()) {
+				term.degree = 0;
+				term.coefficient = stoi(arr[2]);
+			}
+			else {
+				term.degree = !arr[3].empty() ? stoi(arr[3]) : 1;
+				term.coefficient = !arr[2].empty() ? stoi(arr[2]) : 1;
+			}
+
+			if (negative) {
+				term.coefficient *= -1;
+			}
+
+			poly.push_back(term);
+
+			txt = m.suffix();
 		}
 
-		// 부호 확인
-		bool negative = arr[1][0]=='-';
-
-		Term term;
-
-		if (!arr[6].empty()) {
-			// 상수항 처리
-			term.degree = 0;
-			term.coefficient = stoi(arr[6]);
-		}
-		else {
-			// 단항 처리
-			term.degree = !arr[5].empty() ? stoi(arr[5]) : 1;
-			term.coefficient = !arr[3].empty() ? stoi(arr[3]) : 1;
-		}
-
-		// 부호 처리
-		if (negative) {
-			term.coefficient *= -1;
-		}
-
-		poly.push_back(term);
-
-		txt = m.suffix();
+		poly.sort([](const Term& a, const Term& b) {return a.degree < b.degree; });
+	}catch(const std::regex_error& e){
+		std::cout << e.what() << std::endl;
 	}
-
-	poly.sort([](const Term& a, const Term& b) {return a.degree < b.degree; });
-
 	return *this;
 }
 
