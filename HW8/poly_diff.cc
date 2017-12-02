@@ -46,10 +46,10 @@ int Polynomial::operator()(int rhs) const {
 }
 
 Polynomial& Polynomial::operator>>(const std::string& expr){
-	try{
-		std::regex reg(R"(\-)?(?:(\d*)x(?:\^(\d+))?|(\d+))");
+	try {
+		std::regex reg(R"((-?)((\d*)x(\^(\d+))?|(\d+)))");
 		std::smatch m;
-	
+
 		std::string txt = expr;
 
 		while (std::regex_search(txt, m, reg)) {
@@ -60,19 +60,23 @@ Polynomial& Polynomial::operator>>(const std::string& expr){
 				arr.push_back(static_cast<std::string>(sm));
 			}
 
-			bool negative = arr[1][0]=='-';
+			// Check a sign of a term.
+			bool negative = arr[1][0] == '-';
 
 			Term term;
 
-			if (!arr[4].empty()) {
+			if (!arr[6].empty()) {
+				// zero degree
 				term.degree = 0;
-				term.coefficient = stoi(arr[2]);
+				term.coefficient = stoi(arr[6]);
 			}
 			else {
-				term.degree = !arr[3].empty() ? stoi(arr[3]) : 1;
-				term.coefficient = !arr[2].empty() ? stoi(arr[2]) : 1;
+				// more than zero degree
+				term.degree = !arr[5].empty() ? stoi(arr[5]) : 1;
+				term.coefficient = !arr[3].empty() ? stoi(arr[3]) : 1;
 			}
 
+			// Apply the sign.
 			if (negative) {
 				term.coefficient *= -1;
 			}
@@ -83,8 +87,9 @@ Polynomial& Polynomial::operator>>(const std::string& expr){
 		}
 
 		poly.sort([](const Term& a, const Term& b) {return a.degree < b.degree; });
-	}catch(const std::regex_error& e){
-		std::cout << e.what() << std::endl;
+	}
+	catch (const std::regex_error& e) {
+
 	}
 	return *this;
 }
