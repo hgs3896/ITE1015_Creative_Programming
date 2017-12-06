@@ -10,13 +10,13 @@ int main() {
 	while (T--) {
 		std::cin >> str;
 		int result = 0;
-		for (const auto& c : str) {
+		for (const char c : str) {
 			if (c == '<') ++result;
 			else if (c == '>') --result;
 		}
 		res.push_back(result==0);
 	}
-	for (bool x : res) {
+	for (const bool x : res) {
 		std::cout << (x ? "YES" : "NO") << std::endl;
 	}
 	return 0;
