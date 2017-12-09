@@ -4,33 +4,40 @@
 #include <random>
 using namespace std;
 
-int doMonti(int strategy, int rep, int doors);
+typedef long long ll;
+
+ll doMonti(int strategy, ll rep, ll doors);
 
 int main() {
-	int strategy, rep, doors, success;
+	int strategy;
+	ll rep, doors, success;
 	cin >> strategy >> rep >> doors;
 	success = doMonti(strategy, rep, doors);
+	if(success==-1){
+		exit(0);
+	}
 	cout.precision(3);
-	cout << double(100 * success) / rep << "% (" << success << " / " << rep << ")" << endl;
+	cout << 100 * success / static_cast<long double>(rep) << "% (" << success << " / " << rep << ")" << endl;
 	return 0;
 }
 
-int doMonti(int strategy, int rep, int doors) {
-	int success = 0;
+ll doMonti(int strategy, ll rep, ll doors) {
+	ll success = 0;
 	if (strategy <= 0 || strategy > 3) {
 		return -1;
 	}
 
-	void action1(int N, bool* result);
-	void action2(int N, bool* result);
-	void action3(int N, bool* result);
+	void action1(ll N, bool* result);
+	void action2(ll N, bool* result);
+	void action3(ll N, bool* result);
 
-	void(*func_arr[3])(int, bool*) = { action1, action2, action3 };
+	void(*func_arr[3])(ll, bool*) = { action1, action2, action3 };
 
 	vector<thread> threads;
 	static const int max_thread_number = 2 * 4;
 	bool *arr = new bool[max_thread_number];
-	int i, j, k, r;
+	int i, j;
+	ll k, r;
 
 	k = rep / max_thread_number;
 	for (i = 0; i < k; ++i) {
@@ -51,26 +58,26 @@ int doMonti(int strategy, int rep, int doors) {
 	threads.clear();
 	for (j = 0; j < r; ++j)
 		success += arr[j], arr[j] = false;
-	
+
 	delete[] arr;
 	return success;
 }
 
-void action1(int N, bool* result) {
+void action1(ll N, bool* result) {
 	static random_device rd;
 	static mt19937_64 rng(rd());
-	uniform_int_distribution<__int64> dist(1, N);
-	int g, c;
+	uniform_int_distribution<ll> dist(1, N);
+	ll g, c;
 	g = dist(rng);
 	c = dist(rng);	
 	*result = c == g;
 }
 
-void action2(int N, bool* result) {
+void action2(ll N, bool* result) {
 	static random_device rd;
 	static mt19937_64 rng(rd());
-	uniform_int_distribution<__int64> dist(1, N);
-	int c, g, m, l_c;
+	uniform_int_distribution<ll> dist(1, N);
+	ll c, g, m, l_c;
 	g = dist(rng);
 	c = dist(rng);
 	while ((m = dist(rng)) == g || m == c);
@@ -78,11 +85,11 @@ void action2(int N, bool* result) {
 	*result = l_c == g;
 }
 
-void action3(int N, bool* result) {
+void action3(ll N, bool* result) {
 	static random_device rd;
 	static mt19937_64 rng(rd());
-	uniform_int_distribution<__int64> dist(1, N);
-	int g, c, m, l_c;
+	uniform_int_distribution<ll> dist(1, N);
+	ll g, c, m, l_c;
 	g = dist(rng);
 	c = dist(rng);
 	while ((m = dist(rng)) == g || m == c);
