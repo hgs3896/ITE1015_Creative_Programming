@@ -11,7 +11,7 @@ int main() {
 	cin >> strategy >> rep >> doors;
 	success = doMonti(strategy, rep, doors);
 	cout.precision(3);
-	cout << double(100 * success) / rep << "% (" << success << "/" << rep << ")" << endl;
+	cout << double(100 * success) / rep << "% (" << success << " / " << rep << ")" << endl;
 	return 0;
 }
 
@@ -27,19 +27,31 @@ int doMonti(int strategy, int rep, int doors) {
 
 	void(*func_arr[3])(int, bool*) = { action1, action2, action3 };
 
-	int i;
 	vector<thread> threads;
-	bool *arr = new bool[rep];
+	static const int max_thread_number = 2 * 4;
+	bool *arr = new bool[max_thread_number];
+	int i, j, k, r;
 
-	for (i = 0; i < rep; ++i)
-		threads.push_back(thread(func_arr[strategy - 1], doors, arr+i));
+	k = rep / max_thread_number;
+	for (i = 0; i < k; ++i) {
+		for (j = 0; j < max_thread_number; ++j)
+			threads.push_back(thread(func_arr[strategy - 1], doors, arr + j));
+		for (auto& thread : threads)
+			thread.join();
+		threads.clear();
+		for (j = 0; j < max_thread_number; ++j)
+			success += arr[j], arr[j] = false;
+	}
 
+	r = rep % max_thread_number;
+	for (j = 0; j < r; ++j)
+		threads.push_back(thread(func_arr[strategy - 1], doors, arr + j));
 	for (auto& thread : threads)
 		thread.join();
-
-	for (i = 0; i < rep; ++i)
-		success += arr[i];
-
+	threads.clear();
+	for (j = 0; j < r; ++j)
+		success += arr[j], arr[j] = false;
+	
 	delete[] arr;
 	return success;
 }
