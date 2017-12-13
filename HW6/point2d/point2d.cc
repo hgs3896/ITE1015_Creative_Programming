@@ -1,5 +1,7 @@
 #include "point2d.h"
 
+std::map<std::string, Point> Point::variables;
+
 Point::Point(): x_(0), y_(0){}
 Point::Point(const Point& p) {
 	x_ = p.x_, y_ = p.y_;
@@ -27,17 +29,14 @@ std::ostream& operator<<(std::ostream& os, const Point& p) {
 	return os;
 }
 
-bool registerPoint(const std::string& var_name, const Point& p) {
-	if (Point::variables.count(var_name))
+bool Point::registerPoint(const std::string& var_name) const {
+	if (variables.count(var_name))
 		return false;
-	Point::variables[var_name] = p;
+	variables[var_name] = *this;
 	return true;
 }
 
-bool parseToPoint(const std::string& arg, Point* p) {
-	/*
-		수식 : [부호][수 또는 변수 명]
-	*/
+bool Point::parseToPoint(const std::string& arg) {
 	bool negative = false;
 	std::string expr;
 	if (arg[0] == '-')
@@ -52,18 +51,15 @@ bool parseToPoint(const std::string& arg, Point* p) {
 		expr = arg;
 	}
 
-	// 숫자가 아닌 것이 있다면,
 	if (expr.find_first_not_of("0123456789") != std::string::npos) {
-		// 변수명임
-		if (!Point::variables.count(expr)) {
+		if (!variables.count(expr)) {
 			return false;
 		}
-		*p = negative ? -Point::variables[expr] : Point::variables[expr];
+		*this = negative ? -variables[expr] : variables[expr];
 	}
 	else {
-		// 그냥 숫자임
 		int v = stoi(expr);
-		p->x_ = p->y_ = negative ? -v : v;
+		this->x_ = this->y_ = negative ? -v : v;
 	}
 	return true;
 }

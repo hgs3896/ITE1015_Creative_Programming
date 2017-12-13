@@ -2,8 +2,6 @@
 #include <string>
 #include "point2d.h"
 
-std::map<std::string, Point> Point::variables;
-
 int main() {
 	std::string line, cmd;
 	
@@ -26,7 +24,7 @@ int main() {
 				continue;
 			}
 			Point p = {x, y};
-			registerPoint(var_name, p);
+			p.registerPoint(var_name);
 		}
 		else if (cmd == "eval") {
 			std::string lvar, rvar;
@@ -44,7 +42,7 @@ int main() {
 				"eval 수식(lvar) 연산자(+,-,*) 수식(rvar)"
 			*/
 
-			if (!parseToPoint(lvar, &l) || !parseToPoint(rvar, &r)){
+			if (!l.parseToPoint(lvar) || !r.parseToPoint(rvar)){
 				std::cout << "input error" << std::endl;
 				continue;
 			}

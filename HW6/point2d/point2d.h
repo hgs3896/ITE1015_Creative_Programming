@@ -16,8 +16,8 @@ public:
 	Point(int x, int y);
 	Point operator-();
 	
-	friend bool Point::registerPoint(const std::string& var_name, const Point& p);	
-	friend bool parseToPoint(const std::string& arg, Point* p);
+	bool registerPoint(const std::string& var_name) const;	
+	bool parseToPoint(const std::string& arg);
 
 	friend Point operator+(const Point& lhs, const Point& rhs);
 	friend Point operator-(const Point& lhs, const Point& rhs);
