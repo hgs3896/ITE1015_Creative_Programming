@@ -102,7 +102,8 @@ SimpleIntSet* SimpleIntSet::intersectSet(SimpleIntSet& _operand) {
 	return this;
 }
 void SimpleIntSet::printSet() {
+	cout << "{ ";
 	for (int i = 0; i < mElementCount; ++i)
 		cout << mElements[i] << " ";
-	cout << endl;
+	cout << " }" << endl;
 }
