@@ -9,19 +9,13 @@
 > 1. **HW1**
 > 	+ [피보나치 수열](https://hconnect.hanyang.ac.kr/2017_ITE1015/ite1015_2017030473/blob/master/HW1/Fibonacci.cc)
 > 	+ [마방진 채우기](https://hconnect.hanyang.ac.kr/2017_ITE1015/ite1015_2017030473/blob/master/HW1/magic_square.cc)
-> 	+ [정렬](https://hconnect.hanyang.ac.kr/2017_ITE1015/ite1015_2017030473/blob/master/HW1/sort.cc)
+> 	+ [정렬](https://hconnect.hanyang.ac.kr/2017_ITE1015/ite1015_2017030473/blob/master/HW1/sort_int.cc)
 
 > 2. **HW2**
 > 	+ [점찍기](https://hconnect.hanyang.ac.kr/2017_ITE1015/ite1015_2017030473/blob/master/HW2/draw_points.cc)
 > 	+ [소인수 분해](https://hconnect.hanyang.ac.kr/2017_ITE1015/ite1015_2017030473/blob/master/HW2/prime_factorization.cc)
 > 	+ [진법 변환](https://hconnect.hanyang.ac.kr/2017_ITE1015/ite1015_2017030473/blob/master/HW2/radix_notation.cc)
 > 	+ [댓글 관리](https://hconnect.hanyang.ac.kr/2017_ITE1015/ite1015_2017030473/blob/master/HW2/reply_admin.cc)
-
-> 3. **HW3**
-> 	+ [이진탐색](https://hconnect.hanyang.ac.kr/2017_ITE1015/ite1015_2017030473/blob/master/HW3/binary_search)
-> 	+ [미니멀 파이터](https://hconnect.hanyang.ac.kr/2017_ITE1015/ite1015_2017030473/blob/master/HW3/minimal_fighter)
-> 	+ [댓글 관리 2](https://hconnect.hanyang.ac.kr/2017_ITE1015/ite1015_2017030473/blob/master/HW3/reply_admin)
-> 	+ [정수 집합 연산](https://hconnect.hanyang.ac.kr/2017_ITE1015/ite1015_2017030473/blob/master/HW3/simple_int_set)
 
 > 3. **HW3**
 > 	+ [이진탐색](https://hconnect.hanyang.ac.kr/2017_ITE1015/ite1015_2017030473/blob/master/HW3/binary_search)
