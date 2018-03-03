@@ -47,6 +47,6 @@
 > 	+ [삼각수](https://hconnect.hanyang.ac.kr/2017_ITE1015/ite1015_2017030473/blob/master/HW9/triangle_number.cc)
 > 	+ [괄호문자열](https://hconnect.hanyang.ac.kr/2017_ITE1015/ite1015_2017030473/blob/master/HW9/valid_abs.cc)
 
-> 10. **HW10**
+> 10. **HW10** (Multithreaded)
 > 	+ [몬티홀 1](https://hconnect.hanyang.ac.kr/2017_ITE1015/ite1015_2017030473/blob/master/HW10/monti01.cc)
 > 	+ [몬티홀 2](https://hconnect.hanyang.ac.kr/2017_ITE1015/ite1015_2017030473/blob/master/HW10/monti02.cc)
