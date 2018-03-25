@@ -45,6 +45,6 @@
 > 	+ [삼각수](/HW9/triangle_number.cc)
 > 	+ [괄호문자열](/HW9/valid_abs.cc)
 
-> 10. **[HW10](/HW10)** (Multithreaded)
+> 10. **[HW10](/HW10)** (Multithreaded : so it needs to be built using [Makefile](/HW10/Makefile))
 > 	+ [몬티홀 1](/HW10/monti01.cc)
 > 	+ [몬티홀 2](/HW10/monti02.cc)
